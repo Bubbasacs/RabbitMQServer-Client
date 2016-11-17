@@ -38,20 +38,31 @@
 		function Colleges(){
 			
 		        $con=mysqli_connect ("localhost", "Matt","ms629","it490");
-		        $sql="select * from CollegeList";
+			$sql="select * from CollegeList";
         		$result=mysqli_query($con,$sql);
 			$count=mysqli_num_rows($result);
-			if($count>0){
-			$sql="select * from CollegeList";
-			$result=mysqli_query($con,$sql);
-			while ($row = mysqli_fetch_array($result));
-				{
-				$response = array($row);
-				}
-			echo $response;
-			return $response;	
+			echo "$count\n";
+var_dump($result);
+			//if($count>0){
+			//$sql="select * from CollegeList";
+			//$result=mysqli_query($con,$sql);
+			//var_dump($result);
+			$response=array();
+			for ($i = 0; $i < $count;$i++)
+			{
+				$row = $result->fetch_array();
+				echo "row data:";
+				print_r($row);
+				echo "\n";
+				array_push($response,$row);
+//				echo $row;
+			}
+//			var_dump($response);
+			//echo is_string($response);
+			return $response;
+			//return $row;	
  		      }
-		}
+		
 	$server = new rabbitMQServer("testRabbitMQ.ini","testServer");
 	$server->process_requests('requestProcessor');
 	exit();
